@@ -9,12 +9,12 @@ import (
 )
 
 func initReferral(r *gin.Engine) {
-	r.GET("/ranking", Ranking)
-	r.GET("/currentRanking", CurrentRanking)
-	r.GET("/referrals", Referrals)
+	r.GET("/ranking", RankingHandler)
+	r.GET("/currentRanking", CurrentRankingHandler)
+	r.GET("/referrals", ReferralsHandler)
 }
 
-func Ranking(c *gin.Context) {
+func RankingHandler(c *gin.Context) {
 	result, err := db.Ranking()
 	if err != nil {
 		c.JSON(http.StatusOK, model.Response{Code: 500, Msg: err.Error(), Data: ""})
@@ -23,12 +23,12 @@ func Ranking(c *gin.Context) {
 	c.JSON(http.StatusOK, model.Response{Code: 200, Msg: "", Data: result})
 }
 
-func CurrentRanking(c *gin.Context) {
+func CurrentRankingHandler(c *gin.Context) {
 	userInfo := handler.GetUser(c)
 	c.JSON(http.StatusOK, model.Response{Code: 200, Msg: "", Data: db.CurrentRanking(userInfo.PubKey)})
 }
 
-func Referrals(c *gin.Context) {
+func ReferralsHandler(c *gin.Context) {
 	userInfo := handler.GetUser(c)
 	result, err := db.Referrals(userInfo.PubKey)
 	if err != nil {

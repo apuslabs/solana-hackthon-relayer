@@ -13,7 +13,8 @@ func SetupRouter() *gin.Engine {
 }
 
 func loadRouters(r *gin.Engine) {
-
+	initReferral(r)
+	initUser(r)
 	// node routers
 	r.POST("/getNode", getNodeHandler)
 	r.POST("/submitMetrics", submitMetricsHandler)
