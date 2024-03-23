@@ -13,8 +13,6 @@ func SetupRouter() *gin.Engine {
 }
 
 func loadRouters(r *gin.Engine) {
-	// user routers
-	r.POST("/login", LoginHandler)
 
 	// node routers
 	r.POST("/getNode", getNodeHandler)

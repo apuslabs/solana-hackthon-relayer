@@ -49,3 +49,9 @@ func JWTAuthHandler(c *gin.Context) {
 		return
 	}
 }
+
+func GetUser(c *gin.Context) model.UserInfo {
+	claims, _ := c.Get("claims")
+	result, _ := claims.(UserClaims)
+	return result.User
+}

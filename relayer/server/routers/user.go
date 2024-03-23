@@ -11,6 +11,11 @@ import (
 	"time"
 )
 
+func initUser(r *gin.Engine) {
+	r.POST("/login", LoginHandler)
+
+}
+
 // 用户注册 & 登录
 func LoginHandler(c *gin.Context) {
 
@@ -27,8 +32,9 @@ func LoginHandler(c *gin.Context) {
 		return
 	}
 
-	// 用户未注册
+	// 用户未注册,注册用户信息
 	if user.Code == "" {
+		// 生成code，记录用户信息
 		user.Code, err = db.GetCode(key)
 		if err != nil {
 			c.JSON(http.StatusOK, model.Response{Code: 401, Msg: err.Error(), Data: ""})
@@ -40,10 +46,11 @@ func LoginHandler(c *gin.Context) {
 			c.JSON(http.StatusOK, model.Response{Code: 401, Msg: err.Error(), Data: ""})
 			return
 		}
+		// 未注册且有邀请码，记录邀请关系
 		if code != "" {
 			// add referral
 			fmt.Printf("referral code: %s, new user code: %s", code, user.Code)
-			db.AddReferral(code, user.PubKey)
+			db.AddReferral(code, user)
 		}
 	}
 	claims := handler.UserClaims{

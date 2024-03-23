@@ -22,5 +22,10 @@ func (u *UserInfo) UnmarshalBinary(data []byte) error {
 	return json.Unmarshal(data, u)
 }
 
+type Ranking struct {
+	Scope  int64  `json:"scope"`
+	Pubkey string `json:"pubkey"`
+}
+
 type NodeInfo struct {
 }
