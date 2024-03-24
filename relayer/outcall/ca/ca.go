@@ -1,6 +1,7 @@
 package ca
 
 import (
+	"apus-relayer/relayer/model"
 	"context"
 	"fmt"
 	"github.com/blocto/solana-go-sdk/client"
@@ -20,4 +21,20 @@ func main() {
 	}
 	fmt.Printf("balance: %v SOL\n", balance)
 
+}
+
+func RegistNode([]model.GpuNode) bool {
+	return false
+}
+
+func GetBalance(pubkey string) int64 {
+	return 0
+}
+
+func GetNodes() []model.GpuNode {
+	return []model.GpuNode{}
+}
+
+func SubmitMetrics([]model.AiTask) bool {
+	return false
 }
